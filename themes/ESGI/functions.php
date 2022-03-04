@@ -5,6 +5,9 @@
 // support d'un logo custom
 add_theme_support( 'custom-logo' );
 
+// support de thumbnails
+add_theme_support( 'post-thumbnails' );
+
 // Définir les emplacements de menu
 
 function register_menu(){
