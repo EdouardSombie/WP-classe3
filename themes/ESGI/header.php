@@ -8,16 +8,21 @@
 	<body <?php body_class(); ?>>
 		<header id="site-header">
 			<div class="container">
-				<?php
-				if (has_nav_menu('primary_menu')){
-					wp_nav_menu(
-						[
-							'container'  => 'nav',
-							'theme_location' => 'primary_menu',
-							'container_class' => 'main-navbar'
-						]
-					);
-				} 
-				?>
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<?php
+						if (has_nav_menu('primary_menu')){
+							wp_nav_menu(
+								[
+									'container'  => 'nav',
+									'theme_location' => 'primary_menu',
+									'container_class' => 'main-navbar'
+								]
+							);
+						} 
+						?>
+					</div>
+				</div>
+				
 			</div>
 		</header>
