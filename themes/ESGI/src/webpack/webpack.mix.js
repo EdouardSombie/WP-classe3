@@ -11,12 +11,12 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.setPublicPath('../../');
+//mix.setPublicPath('../../');
 
-// mix.babel([
-//  '../src/js/vendor/jquery-3.6.0.min.js',
-//  '../src/js/main.js'
-// ], '../dist/main.js');
+mix.babel([
+ '../js/vendor/jquery-3.6.0.min.js',
+ '../js/main.js'
+], '../../assets/js/main.js');
 
 // mix.minify('../web/dist/main.js');
 
