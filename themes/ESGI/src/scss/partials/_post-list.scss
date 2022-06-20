@@ -4,10 +4,13 @@
 	padding: 0;
 	display: flex;
 	flex-direction: column;
+	padding-top: rem(60);
+	border-top: solid thin var(--light-grey);
 	a{
 		color: inherit;
 		text-decoration: none;
 		transition: color 0.3s;
+		display: block;
 		&:hover{
 			color: var(--main-color);
 		}
