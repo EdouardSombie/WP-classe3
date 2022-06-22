@@ -11618,6 +11618,7 @@ body.dark {
   border: solid thin var(--light-grey);
 }
 #site-footer #searchform [type=submit] {
+  color: var(--text-color);
   border: none;
   background-color: transparent;
   transition: color 0.3s;
@@ -11688,8 +11689,6 @@ body.dark {
   padding: 0;
   display: flex;
   flex-direction: column;
-  padding-top: 3.75rem;
-  border-top: solid thin var(--light-grey);
 }
 .post-list a {
   color: inherit;
@@ -11703,7 +11702,7 @@ body.dark {
 .post-list article {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2.875rem;
+  margin-bottom: 1.875rem;
 }
 .post-list article h1 {
   flex: 1;
