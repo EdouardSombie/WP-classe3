@@ -35,7 +35,7 @@ function esgi_custom_post_type() {
 	 'query_var' => true,
 	 'menu_position' => 1,
 	 'publicly_queryable' => true,
-	 'supports' => array( 'thumbnail', 'editor', 'title', 'revisions'),
+	 'supports' => array( 'thumbnail', 'editor', 'title', 'custom-fields'),
 	 'show_in_rest' => true
 	 ];
 
@@ -210,3 +210,114 @@ function esgi_load_textdomain_mo( $mofile, $domain ) {
     }
     return $mofile;
 }
+
+
+// INCLUSION DU PLUGIN ACF
+
+// Define path and URL to the ACF plugin.
+define( 'MY_ACF_PATH', WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/includes/acf/' );
+define( 'MY_ACF_URL', WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/includes/acf/' );
+
+// Include the ACF plugin.
+include_once( MY_ACF_PATH . 'acf.php' );
+
+// Customize the url setting to fix incorrect asset URLs.
+add_filter('acf/settings/url', 'my_acf_settings_url');
+function my_acf_settings_url( $url ) {
+    return MY_ACF_URL;
+}
+
+// (Optional) Hide the ACF admin menu item.
+//add_filter('acf/settings/show_admin', 'my_acf_settings_show_admin');
+function my_acf_settings_show_admin( $show_admin ) {
+    return false;
+}
+
+
+// Ajouter un custom field aux projects
+
+
+
+
+function esgi_add_local_field_groups() {
+	
+	$post_object_field = array(
+	
+		/* ... Insert generic settings here ... */
+		/* (string) Unique identifier for the field. Must begin with 'field_' */
+		'key' => 'field_related_posts',
+		
+		/* (string) Visible when editing the field value */
+		'label' => ucfirst(__('related posts', 'ESGI')),
+		
+		/* (string) Used to save and load data. Single word, no spaces. Underscores and dashes allowed */
+		'name' => 'related_posts',
+		
+		/* (string) Type of field (text, textarea, image, etc) */
+		'type' => 'post_object',
+		
+		/* (string) Instructions for authors. Shown when submitting data */
+		'instructions' => __('Choose related posts', 'ESGI'),
+		
+		/* (int) Whether or not the field value is required. Defaults to 0 */
+		'required' => 0,
+		
+		/* (mixed) Conditionally hide or show this field based on other field's values. 
+		Best to use the ACF UI and export to understand the array structure. Defaults to 0 */
+		'conditional_logic' => 0,
+		
+		/* (array) An array of attributes given to the field element */
+		'wrapper' => array (
+			'width' => '',
+			'class' => '',
+			'id' => '',
+		),
+		
+		/* (mixed) A default value used by ACF if no value has yet been saved */
+		'default_value' => '',
+		
+		/* (mixed) Specify an array of post types to filter the available choices. Defaults to '' */
+		'post_type' => 'post',
+		
+		/* (mixed) Specify an array of taxonomies to filter the available choices. Defaults to '' */
+		'taxonomy' => '',
+		
+		/* (bool) Allow a null (blank) value to be selected. Defaults to 0 */
+		'allow_null' => 0,
+		
+		/* (bool) Allow mulitple choices to be selected. Defaults to 0 */
+		'multiple' => 1,
+		
+		/* (string) Specify the type of value returned by get_field(). Defaults to 'object'.
+		Choices of 'object' (Post object) or 'id' (Post ID) */
+		'return_format' => 'object',
+		
+	);
+
+
+	acf_add_local_field_group(array(
+		'key' => 'group_1',
+		'title' => ucfirst(__('project fields', 'ESGI')),
+		'fields' => array (
+			$post_object_field
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'project',
+				),
+			),
+		),
+	));
+	
+}
+
+add_action('acf/init', 'esgi_add_local_field_groups');
+
+
+
+
+
+
